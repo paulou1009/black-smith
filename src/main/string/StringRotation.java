@@ -1,4 +1,4 @@
-package main;
+package main.string;
 
 public class StringRotation {
 

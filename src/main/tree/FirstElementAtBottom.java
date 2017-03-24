@@ -1,4 +1,4 @@
-package main;
+package main.tree;
 
 import main.datastructure.TreeNode;
 

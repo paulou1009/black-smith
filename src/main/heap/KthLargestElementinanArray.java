@@ -1,5 +1,8 @@
 package main.heap;
 
+import java.util.Collections;
+import java.util.PriorityQueue;
+
 /***
  * Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
 
@@ -9,14 +12,19 @@ package main.heap;
  Note:
  You may assume k is always valid, 1 ≤ k ≤ array's length.
 
- Credits:
- Special thanks to @mithmatt for adding this problem and creating all test cases.
-
- Subscribe to see which companies asked this question.
-
- Show Tags
- Show Similar Problems
-
  */
 public class KthLargestElementinanArray {
+    public static int kthLargestElement(int[] arr, int k){
+        PriorityQueue<Integer> heap = new PriorityQueue<>(Collections.reverseOrder());
+        for(int i : arr){
+            heap.add(i);
+        }
+        int res = 0;
+        while(k > 0){
+            res = heap.poll();
+            k--;
+        }
+
+        return res;
+    }
 }

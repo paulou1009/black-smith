@@ -1,55 +1,57 @@
 package main;
 
-import main.heap.KFrequentElement;
+import main.datastructure.TreeNode;
+import main.list.ListNode;
+import main.sort.QuickSort;
 
 public class Application {
 
     public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        ListNode head1 = new ListNode(2);
+        ListNode head2 = new ListNode(3);
+        head.next = head1;
+        head1.next = head2;
 
-        int[] input = {1, 1, 1, 1, 2, 2, 9};
-//        int[] input = new int[9];
-//        input[0] = 1;
-//        input[1] = 5;
-//        input[2] = 8;
-//        input[3] = 9;
-//        int[] second = {2,3,6,7,10};
-//        MergeSortedArray.merge(input, 4, second, 5);
-        for (int n : KFrequentElement.frequentElement(input, 2))
-            System.out.print(n + " ");
+        head = removeNthFromEnd(head,2);
+        while(head != null){
+            System.out.print(head.val);
+            head = head.next;
+        }
+    }
+    public static ListNode removeNthFromEnd(ListNode a, int b) {
+        ListNode list = a;
+        //reverse the list
+        list = reverse(list);
+        ListNode tmpHeader = list;
+        //delete the nth node from the head
+        while(b > 2 && list.next != null){
+            list = list.next;
+            b--;
+        }
+        if(list.next != null && list.next.next != null){
+            list.next = list.next.next;
+        } else {
+            list.next = null;
+        }
+        //reverse the list back
+        tmpHeader = reverse(tmpHeader);
+        return tmpHeader;
     }
 
-    public static LinkedList mergeList(LinkedList l1, LinkedList l2) {
-        LinkedList merged = null;
-        LinkedList head = null;
-        while (l1 != null && l2 != null) {
-            if (l1.val <= l2.val) {
-                if (head == null) {
-                    merged = new LinkedList(l1.val);
-                    head = merged;
-                } else {
-                    merged.next = new LinkedList(l1.val);
-                    merged = merged.next;
-                }
-                l1 = l1.next;
-            } else {
-                if (head == null) {
-                    merged = new LinkedList(l2.val);
-                    head = merged;
-                } else {
-                    merged.next = new LinkedList(l2.val);
-                    merged = merged.next;
-                }
-                l2 = l2.next;
-            }
-        }
+    public static ListNode reverse(ListNode node){
+        if(node == null) return node;
+        ListNode cur = node;
+        ListNode next = cur.next;
 
-        if (l1 == null && l2 != null) {
-            merged.next = l2;
+        while(cur !=null && next != null){
+            ListNode tmp = next.next;
+            next.next = cur;
+            cur = next;
+            next = tmp;
         }
-        if (l1 != null && l2 == null) {
-            merged.next = l1;
-        }
-
-        return head;
+        //original head.next point to null
+        node.next = null;
+        return cur;
     }
 }
